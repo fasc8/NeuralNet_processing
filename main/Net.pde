@@ -69,7 +69,7 @@ class Net {
     
     //render error
     fill(255);
-    text("Fehlerrate: " + m_recentAverageError, 10, altY + 15);
+    text("Error rate: " + m_recentAverageError, 10, altY + 15);
     
     //render layers
     for(int c = 0; c <= cols; c++) {
