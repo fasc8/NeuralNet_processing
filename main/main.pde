@@ -57,13 +57,13 @@ void draw() {
   //Show Input Values
   for (int n = 0; n < inputVals.length; ++n) {
     fill(255, 100, 0);
-    text("Inputwert " + n + ": " + inputVals[n] + "", x, y + 15 * (n+1));
+    text("Inputvalue " + n + ": " + inputVals[n] + "", x, y + 15 * (n+1));
   }
   //Show Target Values
   y += 15 * inputVals.length;
   for (int n = 0; n < targetVals.length; ++n) {
     fill(0, 255, 255);
-    text("Zielwert " + n + ": " + targetVals[n], x, y + 15 * (n+1));
+    text("Targetvalue " + n + ": " + targetVals[n], x, y + 15 * (n+1));
   }
   //Show Result Values
   y += 15 * targetVals.length;
@@ -74,12 +74,12 @@ void draw() {
     } else {
       fill(255, 0, 0);
     }
-    text("Ergebniswert " + n + ": " + resultVals[n] + "", x, y + 15 * (n+1));
+    text("Result " + n + ": " + resultVals[n] + "", x, y + 15 * (n+1));
   }
   //Show trainings count
   y += 15 * resultVals.length;
   fill(255);
-  text(trainingPass + " durchläufe", x, y + 15); 
+  text(trainingPass + " runs", x, y + 15); 
   //****************************************************
   
   //Call the drawfunction to access the Net data
