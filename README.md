@@ -4,6 +4,14 @@ Based on a <a href="https://github.com/fasc8/NeuralNet_C-">C++ tutorial</a>
 
 <a href="/images/MainFrame.png">Rendered</a>
 
+# Files
+- <a href="/main/Connection.pde">Connection.pde</a> -> Class for handling the connections between the neurons  
+- <a href="/main/Layer.pde">Layer.pde</a> -> Class with neuron array in it  
+- <a href="/main/Net.pde">Net.pde</a> -> Class works as neural net  
+- <a href="/main/Neuron.pde">Neuron.pde</a> -> Class for handling a neuron  
+- <a href="/main/getData.pde">getData.pde</a> -> Contains the handling with inputdata and outputdata  
+- <a href="/main/main.pde">main.pde</a> -> Handles all the other files and contains setup() and draw()
+
 # Usage
 
 Topology is the basic array for building the neural net.
@@ -77,8 +85,92 @@ double[] calcOutput(double[] inputData) {
 }
 ```
 ## feedForward
+This function triggers the feedForward function for each neuron
+```processing
+  void feedForward(double[] inputVals) {
+    assert(inputVals.length == m_layers[0].neuron.length - 1); //Assert that the inputValues are as many as neurons in the first layer
+    
+    for (int i = 0; i < inputVals.length; ++i) { //assign (latch) the input values into input neurons
+      m_layers[0].neuron[i].setOutputVal(inputVals[i]);
+    }
+    
+    for (int layerNum = 1; layerNum < m_layers.length; ++layerNum) { //Forward propagate
+      Layer prevLayer = m_layers[layerNum - 1];
+      for (int n = 0; n < m_layers[layerNum].neuron.length - 1; ++n) {
+        m_layers[layerNum].neuron[n].feedForward(prevLayer);
+      }
+    }
+  }
+```
+So here is the feedForward in a single neuron
+```processing
+  void feedForward(Layer prevLayer) {
+    double sum = 0.0;
+    //Sum the previous layer´s outputs (which are our inputs)
+    //Include the bias node from the previous layer.
 
+    for (int n = 0; n < prevLayer.neuron.length; ++n) {
+      sum += prevLayer.neuron[n].getOutputVal() 
+        * prevLayer.neuron[n].m_outputWeights[m_myIndex].weight;
+    }
+
+    m_outputVal = transferFunction(sum); //This is a function to limit the value between -1 and 1 and sets the outputvalue to it
+  }
+```
 ## getResults
+Here we get the resultvalues that are calculated by the neural network
+```processing
+  double[] getResults(double[] resultVals) {
+    resultVals = new double[] {};
 
+    for (int n = 0; n < m_layers[m_layers.length - 1].neuron.length - 1; ++n) {
+      resultVals = (double[])append(resultVals, m_layers[m_layers.length - 1].neuron[n].getOutputVal());
+    }
+    return resultVals;
+  }
+```
 ## backProp
+Here we readjust the weights of the single connections to get better results
+```processing
+  void backProp(double[] targetVals) {
+    //Calculate overall net error (RMS of output neuron errors)
+    Layer outputLayer = m_layers[m_layers.length - 1];
+    m_error = 0.0;
 
+    for (int n = 0; n < outputLayer.neuron.length - 1; ++n) {
+      double delta = targetVals[n] - outputLayer.neuron[n].getOutputVal();
+      m_error += delta * delta;
+    }
+    m_error /= outputLayer.neuron.length - 1; //get average error squared
+    m_error = Math.sqrt(m_error); //rms
+
+    //Implement a revent average measurment:
+    m_recentAverageError = (m_recentAverageError * m_recentAverageSmoothingFactor + m_error) / (m_recentAverageSmoothingFactor + 1.0);
+
+    //Claculate output layer gradients
+    for (int n = 0; n < outputLayer.neuron.length - 1; ++n) {
+      outputLayer.neuron[n].calcOutputGradients(targetVals[n]);
+    }
+
+    //Calculate gradients on hidden layers
+    for (int layerNum = m_layers.length - 2; layerNum > 0; --layerNum) {
+      Layer hiddenLayer = m_layers[layerNum];
+      Layer nextLayer = m_layers[layerNum + 1];
+
+      for (int n = 0; n < hiddenLayer.neuron.length; ++n) {
+        hiddenLayer.neuron[n].calcHiddenGradients(nextLayer);
+      }
+    }
+
+    //For all layers from outputs to first hidden layer
+    //update connection weights
+    for (int layerNum = m_layers.length - 1; layerNum > 0; --layerNum) {
+      Layer layer = m_layers[layerNum];
+      Layer prevLayer = m_layers[layerNum - 1];
+
+      for (int n = 0; n < layer.neuron.length - 1; ++n) {
+        layer.neuron[n].updateInputWights(prevLayer);
+      }
+    }
+  }
+```
