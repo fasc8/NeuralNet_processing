@@ -4,7 +4,7 @@ Based on a <a href="https://github.com/fasc8/NeuralNet_C-">C++ tutorial</a>
 
 <a href="/images/MainFrame.png">Rendered</a>
 
-# Files
+## Files
 - <a href="/main/Connection.pde">Connection.pde</a> -> Class for handling the connections between the neurons  
 - <a href="/main/Layer.pde">Layer.pde</a> -> Class with neuron array in it  
 - <a href="/main/Net.pde">Net.pde</a> -> Class works as neural net  
@@ -12,7 +12,7 @@ Based on a <a href="https://github.com/fasc8/NeuralNet_C-">C++ tutorial</a>
 - <a href="/main/getData.pde">getData.pde</a> -> Contains the handling with inputdata and outputdata  
 - <a href="/main/main.pde">main.pde</a> -> Handles all the other files and contains setup() and draw()
 
-# Usage
+## Usage
 
 Topology is the basic array for building the neural net.
 Every item is a layer and its value is the number of neurons in it.
@@ -47,7 +47,7 @@ There are a few functions we need to take a look at:
   - <a href="https://github.com/fasc8/NeuralNet_processing#getresults">getResults</a>  
   - <a href="https://github.com/fasc8/NeuralNet_processing#backprop">backProp</a>  
     
-## getNextInput
+### getNextInput
 
 Here we calculate our input data. In this case it´s a random array with four items. Each item can be wether a one or a zero.
 ```processing
@@ -84,7 +84,7 @@ double[] calcOutput(double[] inputData) {
   return data;
 }
 ```
-## feedForward
+### feedForward
 This function triggers the feedForward function for each neuron
 ```processing
   void feedForward(double[] inputVals) {
@@ -117,7 +117,7 @@ So here is the feedForward in a single neuron
     m_outputVal = transferFunction(sum); //This is a function to limit the value between -1 and 1 and sets the outputvalue to it
   }
 ```
-## getResults
+### getResults
 Here we get the resultvalues that are calculated by the neural network
 ```processing
   double[] getResults(double[] resultVals) {
@@ -129,7 +129,7 @@ Here we get the resultvalues that are calculated by the neural network
     return resultVals;
   }
 ```
-## backProp
+### backProp
 Here we readjust the weights of the single connections to get better results
 ```processing
   void backProp(double[] targetVals) {
