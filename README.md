@@ -34,10 +34,10 @@ void draw() {
   }
   ```
 There are a few functions we need to take a look at:  
-  - <a href="https://github.com/fasc8/NeuralNet_processing#getNextInput">getNextInput / calcOutput</a>  
-  - <a href="https://github.com/fasc8/NeuralNet_processing#feedForward">feedForward</a>  
-  - <a href="https://github.com/fasc8/NeuralNet_processing#getResults">getResults</a>  
-  - <a href="https://github.com/fasc8/NeuralNet_processing#backProp">backProp</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#getnextinput">getNextInput / calcOutput</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#feedforward">feedForward</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#getresults">getResults</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#backprop">backProp</a>  
     
 ## getNextInput
 
