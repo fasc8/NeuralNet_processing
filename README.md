@@ -33,8 +33,52 @@ void draw() {
     myNet.backProp(targetVals); //Check the result against the target and readjust the weights
   }
   ```
-  There are a few functions we need to take a look at:
-    - <a href="https://github.com/fasc8/NeuralNet_processing#usage">getNextInput</a>
-    - <a href="/NeuralNet_processing#usage">feedForward</a>
-    - <a href="/images/MainFrame.png">getResults</a>
-    - <a href="/images/MainFrame.png">backProp</a>
+There are a few functions we need to take a look at:  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#getNextInput">getNextInput / calcOutput</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#feedForward">feedForward</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#getResults">getResults</a>  
+  - <a href="https://github.com/fasc8/NeuralNet_processing#backProp">backProp</a>  
+    
+## getNextInput
+
+Here we calculate our input data. In this case it´s a random array with four items. Each item can be wether a one or a zero.
+```processing
+//get random inputData
+double[] getNextInput() {
+  double[] inputVals = new double[] { round(random(0, 1)), round(random(0, 1)), round(random(0, 1)), round(random(0, 1)) };
+  return inputVals;
+}
+```
+
+And here we calculate the target output. We want to know how many zeros in the array are. There are five possible outputs. For example if there are two zeros in the input the output array looks like { 0, 0, 1, 0, 0 }
+```processing
+//Calculate the output
+double[] calcOutput(double[] inputData) {
+  int count = 0;
+  double[] data = new double[] {};
+  
+  //Count the dark rectangles
+  for(int i = 0; i < inputData.length; i++) {
+    if(inputData[i] == 0) {
+      count++;
+    }
+  }
+  
+  //set the targetValues
+  for(int c = 0; c < inputData.length + 1; c++) {
+    if(c == count) {
+      data = (double[])append(data, 1);
+    } else {
+      data = (double[])append(data, 0);
+    }
+  }
+  
+  return data;
+}
+```
+## feedForward
+
+## getResults
+
+## backProp
+
