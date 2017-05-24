@@ -34,7 +34,7 @@ void draw() {
   }
   ```
   There are a few functions we need to take a look at:
-    - <a href="/images/MainFrame.png">getNextInput</a>
-    - <a href="/images/MainFrame.png">feedForward</a>
+    - <a href="https://github.com/fasc8/NeuralNet_processing#usage">getNextInput</a>
+    - <a href="/NeuralNet_processing#usage">feedForward</a>
     - <a href="/images/MainFrame.png">getResults</a>
     - <a href="/images/MainFrame.png">backProp</a>
