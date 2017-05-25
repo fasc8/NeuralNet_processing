@@ -32,9 +32,9 @@ The next step is to feed the network with trainingdata
 void draw() {
   background(51);
     inputVals = getNextInput(); //Get the next inputValues
-    targetVals = calcOutput(inputVals); //Targetvalues get calculated in this setup
+    targetVals = calcOutput(inputVals); //Targetvalues get calculated here for this example
     //could be already set preprocessing like
-    targetVals = getNextTargets();
+    //targetVals = getNextTargets();
     
     myNet.feedForward(inputVals); //Feed the neural net
     resultVals = myNet.getResults(resultVals); //get the values calculated by the neural net
@@ -49,16 +49,20 @@ There are a few functions we need to take a look at:
     
 ### getNextInput
 
-Here we calculate our input data. In this case it´s a random array with four items. Each item can be wether a one or a zero.
+Here we calculate our input data. In this case it´s a random array with four items. Each item can be wether a one or a zero.  
+The function returns an double array. The item count should fit to the neuron count in the first layer, the input layer.
 ```processing
 //get random inputData
 double[] getNextInput() {
   double[] inputVals = new double[] { round(random(0, 1)), round(random(0, 1)), round(random(0, 1)), round(random(0, 1)) };
   return inputVals;
 }
+//In this example we have a input layer with 4 neurons + 1 bias neuron
+//That´s why inputVals has 4 items
 ```
 
-And here we calculate the target output. We want to know how many zeros in the array are. There are five possible outputs. For example if there are two zeros in the input the output array looks like { 0, 0, 1, 0, 0 }
+And here we calculate the target output. We want to know how many zeros in the array are. There are five possible outputs. For example if there are two zeros in the input the output array looks like { 0, 0, 1, 0, 0 }  
+The 1 is at the location where the corresponding number is. So the 1 in the example above means that there are two zeros(rendered as black squares/rectangles)
 ```processing
 //Calculate the output
 double[] calcOutput(double[] inputData) {
@@ -125,6 +129,7 @@ Here we get the resultvalues that are calculated by the neural network
 
     for (int n = 0; n < m_layers[m_layers.length - 1].neuron.length - 1; ++n) {
       resultVals = (double[])append(resultVals, m_layers[m_layers.length - 1].neuron[n].getOutputVal());
+      //Here we get the outputvalues of the neurons in the last layer, the output layer
     }
     return resultVals;
   }
@@ -144,7 +149,7 @@ Here we readjust the weights of the single connections to get better results
     m_error /= outputLayer.neuron.length - 1; //get average error squared
     m_error = Math.sqrt(m_error); //rms
 
-    //Implement a revent average measurment:
+    //Implement a recent average measurment:
     m_recentAverageError = (m_recentAverageError * m_recentAverageSmoothingFactor + m_error) / (m_recentAverageSmoothingFactor + 1.0);
 
     //Claculate output layer gradients
