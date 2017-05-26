@@ -2,7 +2,7 @@
 
 Based on a <a href="https://github.com/fasc8/NeuralNet_C-">C++ tutorial</a>
 
-<a href="/images/MainFrame.png">Rendered</a>
+<a href="/Rendered.md">Rendered Window / Explanation</a>
 
 ## Files
 - <a href="/main/Connection.pde">Connection.pde</a> -> Class for handling the connections between the neurons  
