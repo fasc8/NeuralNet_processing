@@ -122,7 +122,7 @@ So here is the feedForward in a single neuron
   }
 ```
 ### getResults
-Here we get the resultvalues that are calculated by the neural network
+Here we get the resultvalues that are calculated by the neural network. We get them here to render them in the window. This is not necessary for the further process.
 ```processing
   double[] getResults(double[] resultVals) {
     resultVals = new double[] {};
@@ -179,3 +179,6 @@ Here we readjust the weights of the single connections to get better results
     }
   }
 ```
+
+#### Further  
+For a deeper explanation please watch the **C++ tutorial** linked <a href="https://github.com/fasc8/NeuralNet_C-">here</a>
