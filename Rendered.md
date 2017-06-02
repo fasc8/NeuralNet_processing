@@ -8,8 +8,8 @@ There are a few things to explain here.
 First the different texts on the left side. These are the values for the neural  net.  
 We have 4 input values in orange at the top left corner. These are the values we give to the input layer of the neural net. These change 
 for each drawloop. Underneath in the bluish color we have the target values. These are the values the neural net should calculate. These 
-values change for every drawloop aswell. Under it we find the actual values the neural net calculates. Green means that the values is in the
-5% error rate. Red means that the value is not. These change, who would have guess, as well.
+values change for every drawloop aswell. Under it we find the actual values the neural net calculates. Green means that the value is in the
+5% error rate. Red means that the value is not. These change, who would have guess, as well everytime the drawloop restarts.
 ```processing
  //We render these lines here
  //main.pde line 68
